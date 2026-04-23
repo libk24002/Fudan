@@ -1,7 +1,13 @@
-const API_BASE = "http://127.0.0.1:8000";
+const API_BASE = import.meta.env.VITE_API_BASE_URL || "http://127.0.0.1:8000";
+
+function buildUrl(path) {
+  const normalizedBase = API_BASE.replace(/\/+$/, "");
+  const normalizedPath = String(path).replace(/^\/+/, "");
+  return `${normalizedBase}/${normalizedPath}`;
+}
 
 export async function request(path, options = {}) {
-  const response = await fetch(`${API_BASE}${path}`, {
+  const response = await fetch(buildUrl(path), {
     headers: { "Content-Type": "application/json" },
     ...options
   });
