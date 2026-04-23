@@ -131,7 +131,17 @@ export AI_REVIEW_MODEL="gpt-4o-mini"
 bash scripts/check.sh
 ```
 
-### 4) 构建并验证沙箱镜像
+### 4) 本地前端环境变量
+
+可复制 `apps/web/.env.example` 为 `apps/web/.env.local`，并按需调整：
+
+```bash
+cp apps/web/.env.example apps/web/.env.local
+```
+
+`VITE_API_BASE_URL` 默认值为 `http://127.0.0.1:8000`。
+
+### 5) 构建并验证沙箱镜像
 
 ```bash
 bash scripts/sandbox-build.sh
@@ -144,7 +154,7 @@ bash scripts/sandbox-smoke.sh
 SANDBOX_RUNTIME=runc bash scripts/sandbox-smoke.sh
 ```
 
-### 5) 旧 CMake 代码编译（Exercise 目录）
+### 6) 旧 CMake 代码编译（Exercise 目录）
 
 ### 使用 CMake
 
@@ -194,3 +204,11 @@ gcc -o exercise Exercise/delete_min_element.c
 ## 许可证
 
 本项目仅用于个人学习和练习。
+
+## 部署前端到 GitHub Pages
+
+1. 在仓库 `Settings -> Pages` 中启用 GitHub Pages（来源使用 `gh-pages` 分支）。
+2. 在仓库 `Settings -> Secrets and variables -> Actions -> Variables` 中新增 `VITE_API_BASE_URL`。
+3. 推送 `dev` 分支触发 `.github/workflows/deploy-web.yml`。
+4. CI 通过后会自动发布 `apps/web/dist` 到 `gh-pages` 分支。
+5. 本地开发可复制 `apps/web/.env.example` 为 `apps/web/.env.local` 并按需修改。
