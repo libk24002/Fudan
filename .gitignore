@@ -8,6 +8,7 @@ Makefile
 
 # Build directories
 build/
+.worktrees/
 bin/
 lib/
 out/
@@ -35,9 +36,16 @@ Release/
 # IDE files
 .idea/
 .vscode/
+node_modules/
+apps/web/dist/
 *.swp
 *.swo
 *~
+
+# Python
+__pycache__/
+*.pyc
+.pytest_cache/
 
 # OS files
 .DS_Store
